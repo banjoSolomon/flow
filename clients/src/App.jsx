@@ -7,24 +7,18 @@ import About from "./pages/about";
 import Contact from "./pages/contact";
 import NotFound from "./pages/NotFound";
 
-
-
 const App = () => {
   return (
-    <div>
-     <BrowserRouter>
+    <BrowserRouter>
       <Navbar />
-      <Footer />
-       <Routes>
+      <Routes>
         <Route path="/" element={<Home />} />
         <Route path="/about" element={<About />} />
         <Route path="/contact" element={<Contact />} />
-        <Route path="/NotFound" element={<NotFound />} />
+        <Route path="*" element={<NotFound />} />
       </Routes>
-      </BrowserRouter>
-     
-      
-    </div>
+      <Footer />
+    </BrowserRouter>
   )
 }
 
