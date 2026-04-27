@@ -1,4 +1,5 @@
 import React from 'react'
+import { Link } from 'react-router-dom'
 import '../styles/footer.css'
 
 const Footer = () => {
@@ -30,50 +31,38 @@ const Footer = () => {
         <div className="footer-section">
           <h4>FLO APP</h4>
           <ul>
-            <li><a href="#">Flo for Tracking Your Period</a></li>
-            <li><a href="#">Flo for Getting Pregnant</a></li>
-            <li><a href="#">Flo for Pregnancy</a></li>
-            <li><a href="#">Pass It On Project</a></li>
-            <li><a href="#">Help center</a></li>
-            <li><a href="#">Manage subscription</a></li>
-            <li><a href="#">Flo promo codes</a></li>
+            <li><Link to="/features">Features</Link></li>
+            <li><Link to="/pricing">Pricing</Link></li>
+            <li><Link to="/download">Download App</Link></li>
+            <li><Link to="/health-library">Health Library</Link></li>
           </ul>
         </div>
         
         <div className="footer-section">
           <h4>COMPANY</h4>
           <ul>
-            <li><a href="/about">About us</a></li>
-            <li><a href="#">Press Center</a></li>
+            <li><Link to="/about">About us</Link></li>
+            <li><Link to="/contact">Contact us</Link></li>
             <li><a href="#">Careers</a></li>
-            <li><a href="#">Affiliates</a></li>
-            <li><a href="/contact">Contact us</a></li>
-            <li><a href="#">Science & research</a></li>
-            <li><a href="#">Medical affairs</a></li>
+            <li><a href="#">Press Center</a></li>
           </ul>
         </div>
         
         <div className="footer-section">
-          <h4>CONTENT</h4>
+          <h4>SUPPORT</h4>
           <ul>
-            <li><a href="#">Health Library</a></li>
-            <li><a href="#">Editorial process and standards</a></li>
-            <li><a href="#">Advertising principles</a></li>
-            <li><a href="#">Tools</a></li>
+            <li><a href="#">Help Center</a></li>
+            <li><a href="#">Community</a></li>
+            <li><a href="#">FAQs</a></li>
           </ul>
         </div>
         
         <div className="footer-section">
           <h4>LEGAL</h4>
           <ul>
-            <li><a href="#">Privacy policy</a></li>
-            <li><a href="#">Privacy portal</a></li>
-            <li><a href="#">Flo privacy FAQs</a></li>
+            <li><Link to="/privacy">Privacy policy</Link></li>
             <li><a href="#">Terms of use</a></li>
             <li><a href="#">Cookie policy</a></li>
-            <li><a href="#">Using Flo's IP</a></li>
-            <li><a href="#">Accessibility statement</a></li>
-            <li><a href="#">Security at Flo</a></li>
           </ul>
         </div>
       </div>

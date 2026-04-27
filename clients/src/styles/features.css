@@ -1,0 +1,125 @@
+.features-page {
+  width: 100%;
+}
+
+.features-hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  padding: 100px 20px;
+  text-align: center;
+  color: white;
+}
+
+.features-hero h1 {
+  font-size: 3.5rem;
+  margin-bottom: 20px;
+  font-weight: 800;
+}
+
+.features-hero p {
+  font-size: 1.3rem;
+  opacity: 0.95;
+}
+
+.features-grid-section {
+  padding: 100px 20px;
+  background: #f8f9fa;
+}
+
+.features-container {
+  max-width: 1200px;
+  margin: 0 auto;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+  gap: 40px;
+}
+
+.feature-card-detailed {
+  background: white;
+  padding: 40px;
+  border-radius: 20px;
+  box-shadow: 0 8px 30px rgba(0,0,0,0.08);
+  transition: transform 0.3s ease;
+}
+
+.feature-card-detailed:hover {
+  transform: translateY(-10px);
+}
+
+.feature-icon-large {
+  font-size: 4rem;
+  margin-bottom: 20px;
+}
+
+.feature-card-detailed h2 {
+  font-size: 1.8rem;
+  margin-bottom: 16px;
+  color: #1a1a1a;
+}
+
+.feature-description {
+  color: #666;
+  line-height: 1.7;
+  margin-bottom: 24px;
+}
+
+.feature-benefits {
+  list-style: none;
+  padding: 0;
+}
+
+.feature-benefits li {
+  padding: 10px 0;
+  color: #333;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.check-icon {
+  color: #4CAF50;
+  font-weight: bold;
+  font-size: 1.2rem;
+}
+
+.cta-section-features {
+  background: linear-gradient(135deg, #FF6B9D 0%, #FF8FAB 100%);
+  padding: 80px 20px;
+  text-align: center;
+  color: white;
+}
+
+.cta-section-features h2 {
+  font-size: 2.5rem;
+  margin-bottom: 16px;
+}
+
+.cta-section-features p {
+  font-size: 1.2rem;
+  margin-bottom: 32px;
+}
+
+.download-btn-large {
+  background: white;
+  color: #FF6B9D;
+  border: none;
+  padding: 18px 48px;
+  font-size: 1.2rem;
+  font-weight: 700;
+  border-radius: 30px;
+  cursor: pointer;
+  transition: transform 0.3s ease;
+}
+
+.download-btn-large:hover {
+  transform: translateY(-3px);
+}
+
+@media (max-width: 768px) {
+  .features-hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .features-container {
+    grid-template-columns: 1fr;
+  }
+}

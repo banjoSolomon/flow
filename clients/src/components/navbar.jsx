@@ -18,26 +18,25 @@ const Navbar = () => {
         </button>
         
         <ul className={`nav-menu ${isMenuOpen ? 'active' : ''}`}>
-          <li className="nav-item dropdown">
-            <span className="nav-link">Product ▾</span>
+          <li className="nav-item">
+            <Link to="/features" className="nav-link">Features</Link>
           </li>
-          <li className="nav-item dropdown">
-            <span className="nav-link">Health Library ▾</span>
+          <li className="nav-item">
+            <Link to="/pricing" className="nav-link">Pricing</Link>
           </li>
-          <li className="nav-item dropdown">
-            <span className="nav-link">Calculators ▾</span>
+          <li className="nav-item">
+            <Link to="/health-library" className="nav-link">Health Library</Link>
           </li>
           <li className="nav-item">
             <Link to="/about" className="nav-link">About</Link>
           </li>
           <li className="nav-item">
-            <span className="nav-link">For Clinicians</span>
+            <Link to="/contact" className="nav-link-secondary">Contact</Link>
           </li>
           <li className="nav-item">
-            <Link to="/contact" className="nav-link-secondary">Manage subscription</Link>
-          </li>
-          <li className="nav-item">
-            <button className="nav-button">Try Flo today</button>
+            <Link to="/download">
+              <button className="nav-button">Download App</button>
+            </Link>
           </li>
         </ul>
       </div>
