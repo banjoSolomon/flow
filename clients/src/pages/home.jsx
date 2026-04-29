@@ -1,5 +1,6 @@
 import React, { useState, useEffect, useRef } from 'react'
 import '../styles/home.css'
+import CycleCalculator from '../components/CycleCalculator'
 
 const Home = () => {
   const [currentTestimonial, setCurrentTestimonial] = useState(0)
@@ -251,6 +252,11 @@ const Home = () => {
             </div>
           ))}
         </div>
+      </section>
+
+      {/* Cycle Calculator Section */}
+      <section className="calculator-section" data-animate id="calculator">
+        <CycleCalculator />
       </section>
 
       {/* Features Section */}
