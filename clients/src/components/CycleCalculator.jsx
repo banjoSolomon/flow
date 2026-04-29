@@ -525,20 +525,28 @@ const CycleCalculator = () => {
               </div>
 
               {results.cycles.map((cycle, idx) => {
-                // Calculate positions as day numbers in the cycle (0-27 for 28-day cycle)
-                const periodStartDay = 0
-                const periodEndDay = results.periodLength
+                // For a 28-day cycle starting at period:
+                // Day 1-5: Period
+                // Day 10-16: Fertile window (7 days)
+                // Day 13-15: Peak fertility (3 days)
+                // Day 15: Ovulation
                 
-                // Calculate fertile window position
-                const fertileStartDay = Math.floor((cycle.fertileStart - cycle.periodStart) / (1000 * 60 * 60 * 24)) + results.cycleLength
-                const fertileEndDay = Math.floor((cycle.fertileEnd - cycle.periodStart) / (1000 * 60 * 60 * 24)) + results.cycleLength
+                const periodStartPercent = 0
+                const periodWidthPercent = (results.periodLength / results.cycleLength) * 100
                 
-                // Calculate peak fertility position
-                const peakStartDay = Math.floor((cycle.peakStart - cycle.periodStart) / (1000 * 60 * 60 * 24)) + results.cycleLength
-                const peakEndDay = Math.floor((cycle.peakEnd - cycle.periodStart) / (1000 * 60 * 60 * 24)) + results.cycleLength
+                // Fertile window starts around day 10 (for 28-day cycle)
+                const fertileStartDay = results.cycleLength - 14 - 5 // 5 days before ovulation
+                const fertileStartPercent = (fertileStartDay / results.cycleLength) * 100
+                const fertileWidthPercent = (7 / results.cycleLength) * 100
                 
-                // Calculate ovulation position
-                const ovulationDay = Math.floor((cycle.ovulation - cycle.periodStart) / (1000 * 60 * 60 * 24)) + results.cycleLength
+                // Peak fertility starts around day 13
+                const peakStartDay = results.cycleLength - 14 - 2 // 2 days before ovulation
+                const peakStartPercent = (peakStartDay / results.cycleLength) * 100
+                const peakWidthPercent = (3 / results.cycleLength) * 100
+                
+                // Ovulation on day 14 (counting from end)
+                const ovulationDay = results.cycleLength - 14
+                const ovulationPercent = (ovulationDay / results.cycleLength) * 100
                 
                 return (
                   <div key={idx} className="timeline-cycle">
@@ -552,8 +560,8 @@ const CycleCalculator = () => {
                         <div 
                           className="timeline-event period"
                           style={{ 
-                            left: '0%',
-                            width: `${(results.periodLength / results.cycleLength) * 100}%`
+                            left: `${periodStartPercent}%`,
+                            width: `${periodWidthPercent}%`
                           }}
                         >
                           <span className="event-label">Period</span>
@@ -563,8 +571,8 @@ const CycleCalculator = () => {
                         <div 
                           className="timeline-event fertile"
                           style={{ 
-                            left: `${(fertileStartDay / results.cycleLength) * 100}%`,
-                            width: `${((fertileEndDay - fertileStartDay) / results.cycleLength) * 100}%`
+                            left: `${fertileStartPercent}%`,
+                            width: `${fertileWidthPercent}%`
                           }}
                         >
                           <span className="event-label">Fertile</span>
@@ -574,8 +582,8 @@ const CycleCalculator = () => {
                         <div 
                           className="timeline-event peak"
                           style={{ 
-                            left: `${(peakStartDay / results.cycleLength) * 100}%`,
-                            width: `${((peakEndDay - peakStartDay) / results.cycleLength) * 100}%`
+                            left: `${peakStartPercent}%`,
+                            width: `${peakWidthPercent}%`
                           }}
                         >
                           <span className="event-label">Peak</span>
@@ -585,7 +593,7 @@ const CycleCalculator = () => {
                         <div 
                           className="timeline-event ovulation"
                           style={{ 
-                            left: `${(ovulationDay / results.cycleLength) * 100}%`,
+                            left: `${ovulationPercent}%`,
                             width: '2%'
                           }}
                         >
