@@ -210,12 +210,12 @@ const CycleCalculator = () => {
           </div>
         </div>
         <div className="example-box">
-          <strong>📝 Example:</strong> If your last period started on May 3, 2026, your cycle is 28 days, and your period lasts 5 days:
+          <strong>📝 Example:</strong> If your last period started on April 1, 2026, your cycle is 28 days, and your period lasts 5 days:
           <ul>
-            <li>Next period: May 31, 2026</li>
-            <li>Ovulation: Around May 17, 2026</li>
-            <li>Fertile window: May 12-18, 2026</li>
-            <li>Peak fertility: May 15-17, 2026</li>
+            <li>Next period: April 29, 2026</li>
+            <li>Ovulation: Around April 15, 2026</li>
+            <li>Fertile window: April 10-16, 2026</li>
+            <li>Peak fertility: April 13-15, 2026</li>
           </ul>
         </div>
       </div>
@@ -235,7 +235,7 @@ const CycleCalculator = () => {
             max={new Date().toISOString().split('T')[0]}
             required
           />
-          <small className="help-text">📌 Example: If your period started on May 3rd, select May 3rd</small>
+          <small className="help-text">📌 Example: If your period started on April 1st, select April 1st</small>
         </div>
 
         <div className="form-row">
