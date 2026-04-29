@@ -512,11 +512,11 @@ const CycleCalculator = () => {
                 </div>
                 <div className="legend-item">
                   <span className="legend-color fertile"></span>
-                  <span>Fertile</span>
+                  <span>Fertile Window</span>
                 </div>
                 <div className="legend-item">
                   <span className="legend-color peak"></span>
-                  <span>Peak</span>
+                  <span>Peak Fertility</span>
                 </div>
                 <div className="legend-item">
                   <span className="legend-color ovulation"></span>
@@ -524,86 +524,63 @@ const CycleCalculator = () => {
                 </div>
               </div>
 
-              {results.cycles.map((cycle, idx) => {
-                // For a 28-day cycle starting at period:
-                // Day 1-5: Period
-                // Day 10-16: Fertile window (7 days)
-                // Day 13-15: Peak fertility (3 days)
-                // Day 15: Ovulation
-                
-                const periodStartPercent = 0
-                const periodWidthPercent = (results.periodLength / results.cycleLength) * 100
-                
-                // Fertile window starts around day 10 (for 28-day cycle)
-                const fertileStartDay = results.cycleLength - 14 - 5 // 5 days before ovulation
-                const fertileStartPercent = (fertileStartDay / results.cycleLength) * 100
-                const fertileWidthPercent = (7 / results.cycleLength) * 100
-                
-                // Peak fertility starts around day 13
-                const peakStartDay = results.cycleLength - 14 - 2 // 2 days before ovulation
-                const peakStartPercent = (peakStartDay / results.cycleLength) * 100
-                const peakWidthPercent = (3 / results.cycleLength) * 100
-                
-                // Ovulation on day 14 (counting from end)
-                const ovulationDay = results.cycleLength - 14
-                const ovulationPercent = (ovulationDay / results.cycleLength) * 100
-                
-                return (
-                  <div key={idx} className="timeline-cycle">
-                    <div className="timeline-label">
-                      <strong>Cycle {cycle.cycleNumber}</strong>
-                      <small>{formatDateShort(cycle.periodStart)}</small>
-                    </div>
-                    <div className="timeline-bar-container">
-                      <div className="timeline-events">
-                        {/* Period - at the start */}
-                        <div 
-                          className="timeline-event period"
-                          style={{ 
-                            left: `${periodStartPercent}%`,
-                            width: `${periodWidthPercent}%`
-                          }}
-                        >
-                          <span className="event-label">Period</span>
-                        </div>
-                        
-                        {/* Fertile window */}
-                        <div 
-                          className="timeline-event fertile"
-                          style={{ 
-                            left: `${fertileStartPercent}%`,
-                            width: `${fertileWidthPercent}%`
-                          }}
-                        >
-                          <span className="event-label">Fertile</span>
-                        </div>
-                        
-                        {/* Peak fertility */}
-                        <div 
-                          className="timeline-event peak"
-                          style={{ 
-                            left: `${peakStartPercent}%`,
-                            width: `${peakWidthPercent}%`
-                          }}
-                        >
-                          <span className="event-label">Peak</span>
-                        </div>
-                        
-                        {/* Ovulation day */}
-                        <div 
-                          className="timeline-event ovulation"
-                          style={{ 
-                            left: `${ovulationPercent}%`,
-                            width: '2%'
-                          }}
-                        >
-                          <span className="event-marker">🥚</span>
-                        </div>
+              <div className="timeline-cycles">
+                {results.cycles.map((cycle, idx) => {
+                  // Create 28 day blocks for visual representation
+                  const days = []
+                  for (let day = 1; day <= results.cycleLength; day++) {
+                    let type = 'normal'
+                    
+                    // Period days (1-5)
+                    if (day <= results.periodLength) {
+                      type = 'period'
+                    }
+                    // Fertile window (days 9-15 for 28-day cycle)
+                    else if (day >= 9 && day <= 15) {
+                      type = 'fertile'
+                    }
+                    
+                    // Peak fertility (days 12-14)
+                    if (day >= 12 && day <= 14) {
+                      type = 'peak'
+                    }
+                    
+                    // Ovulation day (day 14)
+                    if (day === 14) {
+                      type = 'ovulation'
+                    }
+                    
+                    days.push({ day, type })
+                  }
+                  
+                  return (
+                    <div key={idx} className="timeline-cycle-row">
+                      <div className="timeline-cycle-label">
+                        <strong>Cycle {cycle.cycleNumber}</strong>
+                        <small>{formatDateShort(cycle.periodStart)}</small>
+                      </div>
+                      <div className="timeline-days-container">
+                        {days.map((dayInfo, i) => (
+                          <div 
+                            key={i} 
+                            className={`timeline-day ${dayInfo.type}`}
+                            title={`Day ${dayInfo.day}`}
+                          >
+                            {dayInfo.type === 'ovulation' && <span className="ovulation-marker">🥚</span>}
+                          </div>
+                        ))}
+                      </div>
+                      <div className="timeline-day-labels">
+                        <span>1</span>
+                        <span>7</span>
+                        <span>14</span>
+                        <span>21</span>
+                        <span>28</span>
                       </div>
                     </div>
-                  </div>
-                )
-              })}
+                  )
+                })}
+              </div>
             </div>
           )}
 
