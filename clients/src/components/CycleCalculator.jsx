@@ -170,8 +170,54 @@ const CycleCalculator = () => {
   return (
     <div className="calculator-container">
       <div className="calculator-header">
-        <h2 className="calculator-title">🌸 Advanced Cycle Calculator</h2>
+        <h2 className="calculator-title">🌸 Cycle Calculator</h2>
         <p className="calculator-subtitle">Track ovulation, peak fertility, and predict multiple cycles ahead</p>
+      </div>
+
+      <div className="how-to-use">
+        <div className="how-to-header">
+          <span className="info-icon">💡</span>
+          <h3>How to Use This Calculator</h3>
+        </div>
+        <div className="how-to-steps">
+          <div className="step">
+            <span className="step-number">1</span>
+            <div className="step-content">
+              <strong>Enter your last period date</strong>
+              <p>Select the first day your last period started (e.g., May 3, 2026)</p>
+            </div>
+          </div>
+          <div className="step">
+            <span className="step-number">2</span>
+            <div className="step-content">
+              <strong>Set your cycle length</strong>
+              <p>Count days from the first day of one period to the first day of the next (typically 28 days)</p>
+            </div>
+          </div>
+          <div className="step">
+            <span className="step-number">3</span>
+            <div className="step-content">
+              <strong>Set your period length</strong>
+              <p>How many days does your period usually last? (typically 5 days)</p>
+            </div>
+          </div>
+          <div className="step">
+            <span className="step-number">4</span>
+            <div className="step-content">
+              <strong>Click Calculate</strong>
+              <p>Get predictions for ovulation, fertile window, and next periods</p>
+            </div>
+          </div>
+        </div>
+        <div className="example-box">
+          <strong>📝 Example:</strong> If your last period started on May 3, 2026, your cycle is 28 days, and your period lasts 5 days:
+          <ul>
+            <li>Next period: May 31, 2026</li>
+            <li>Ovulation: Around May 17, 2026</li>
+            <li>Fertile window: May 12-18, 2026</li>
+            <li>Peak fertility: May 15-17, 2026</li>
+          </ul>
+        </div>
       </div>
 
       <form className="calculator-form" onSubmit={calculateCycle}>
@@ -179,6 +225,7 @@ const CycleCalculator = () => {
           <label htmlFor="lastPeriod">
             <span className="label-icon">📅</span>
             First day of your last period
+            <span className="tooltip-icon" title="Select the date when your last period started, not when it ended">ⓘ</span>
           </label>
           <input
             type="date"
@@ -188,6 +235,7 @@ const CycleCalculator = () => {
             max={new Date().toISOString().split('T')[0]}
             required
           />
+          <small className="help-text">📌 Example: If your period started on May 3rd, select May 3rd</small>
         </div>
 
         <div className="form-row">
@@ -195,6 +243,7 @@ const CycleCalculator = () => {
             <label htmlFor="cycleLength">
               <span className="label-icon">🔄</span>
               Average cycle length (days)
+              <span className="tooltip-icon" title="Count from day 1 of one period to day 1 of the next period">ⓘ</span>
             </label>
             <input
               type="number"
@@ -205,13 +254,14 @@ const CycleCalculator = () => {
               max="45"
               required
             />
-            <small>Typical: 21-35 days</small>
+            <small>Typical: 21-35 days • Most common: 28 days</small>
           </div>
 
           <div className="form-group">
             <label htmlFor="periodLength">
               <span className="label-icon">⏱️</span>
               Period length (days)
+              <span className="tooltip-icon" title="How many days does your period bleeding last?">ⓘ</span>
             </label>
             <input
               type="number"
@@ -222,7 +272,7 @@ const CycleCalculator = () => {
               max="10"
               required
             />
-            <small>Typical: 3-7 days</small>
+            <small>Typical: 3-7 days • Most common: 5 days</small>
           </div>
         </div>
 
