@@ -525,17 +525,20 @@ const CycleCalculator = () => {
               </div>
 
               {results.cycles.map((cycle, idx) => {
-                const cycleStartDate = new Date(cycle.periodStart)
-                cycleStartDate.setDate(cycleStartDate.getDate() - results.cycleLength)
+                // Calculate positions as day numbers in the cycle (0-27 for 28-day cycle)
+                const periodStartDay = 0
+                const periodEndDay = results.periodLength
                 
-                const getDayOffset = (date) => {
-                  return Math.floor((date - cycleStartDate) / (1000 * 60 * 60 * 24))
-                }
+                // Calculate fertile window position
+                const fertileStartDay = Math.floor((cycle.fertileStart - cycle.periodStart) / (1000 * 60 * 60 * 24)) + results.cycleLength
+                const fertileEndDay = Math.floor((cycle.fertileEnd - cycle.periodStart) / (1000 * 60 * 60 * 24)) + results.cycleLength
                 
-                const periodStart = getDayOffset(cycle.periodStart)
-                const fertileStart = getDayOffset(cycle.fertileStart)
-                const peakStart = getDayOffset(cycle.peakStart)
-                const ovulationStart = getDayOffset(cycle.ovulation)
+                // Calculate peak fertility position
+                const peakStartDay = Math.floor((cycle.peakStart - cycle.periodStart) / (1000 * 60 * 60 * 24)) + results.cycleLength
+                const peakEndDay = Math.floor((cycle.peakEnd - cycle.periodStart) / (1000 * 60 * 60 * 24)) + results.cycleLength
+                
+                // Calculate ovulation position
+                const ovulationDay = Math.floor((cycle.ovulation - cycle.periodStart) / (1000 * 60 * 60 * 24)) + results.cycleLength
                 
                 return (
                   <div key={idx} className="timeline-cycle">
@@ -545,38 +548,45 @@ const CycleCalculator = () => {
                     </div>
                     <div className="timeline-bar-container">
                       <div className="timeline-events">
+                        {/* Period - at the start */}
                         <div 
                           className="timeline-event period"
                           style={{ 
-                            left: `${(periodStart / results.cycleLength) * 100}%`,
+                            left: '0%',
                             width: `${(results.periodLength / results.cycleLength) * 100}%`
                           }}
                         >
                           <span className="event-label">Period</span>
                         </div>
+                        
+                        {/* Fertile window */}
                         <div 
                           className="timeline-event fertile"
                           style={{ 
-                            left: `${(fertileStart / results.cycleLength) * 100}%`,
-                            width: `${(7 / results.cycleLength) * 100}%`
+                            left: `${(fertileStartDay / results.cycleLength) * 100}%`,
+                            width: `${((fertileEndDay - fertileStartDay) / results.cycleLength) * 100}%`
                           }}
                         >
                           <span className="event-label">Fertile</span>
                         </div>
+                        
+                        {/* Peak fertility */}
                         <div 
                           className="timeline-event peak"
                           style={{ 
-                            left: `${(peakStart / results.cycleLength) * 100}%`,
-                            width: `${(3 / results.cycleLength) * 100}%`
+                            left: `${(peakStartDay / results.cycleLength) * 100}%`,
+                            width: `${((peakEndDay - peakStartDay) / results.cycleLength) * 100}%`
                           }}
                         >
                           <span className="event-label">Peak</span>
                         </div>
+                        
+                        {/* Ovulation day */}
                         <div 
                           className="timeline-event ovulation"
                           style={{ 
-                            left: `${(ovulationStart / results.cycleLength) * 100}%`,
-                            width: '3%'
+                            left: `${(ovulationDay / results.cycleLength) * 100}%`,
+                            width: '2%'
                           }}
                         >
                           <span className="event-marker">🥚</span>
