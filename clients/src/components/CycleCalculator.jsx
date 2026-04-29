@@ -524,54 +524,68 @@ const CycleCalculator = () => {
                 </div>
               </div>
 
-              {results.cycles.map((cycle, idx) => (
-                <div key={idx} className="timeline-cycle">
-                  <div className="timeline-label">
-                    <strong>Cycle {cycle.cycleNumber}</strong>
-                    <small>{formatDateShort(cycle.periodStart)}</small>
-                  </div>
-                  <div className="timeline-bar-container">
-                    <div className="timeline-events">
-                      <div 
-                        className="timeline-event period"
-                        style={{ 
-                          left: '0%',
-                          width: `${(results.periodLength / results.cycleLength) * 100}%`
-                        }}
-                      >
-                        <span className="event-label">Period</span>
-                      </div>
-                      <div 
-                        className="timeline-event fertile"
-                        style={{ 
-                          left: `${((cycle.fertileStart - cycle.periodStart) / (1000 * 60 * 60 * 24) / results.cycleLength) * 100}%`,
-                          width: `${(7 / results.cycleLength) * 100}%`
-                        }}
-                      >
-                        <span className="event-label">Fertile</span>
-                      </div>
-                      <div 
-                        className="timeline-event peak"
-                        style={{ 
-                          left: `${((cycle.peakStart - cycle.periodStart) / (1000 * 60 * 60 * 24) / results.cycleLength) * 100}%`,
-                          width: `${(3 / results.cycleLength) * 100}%`
-                        }}
-                      >
-                        <span className="event-label">Peak</span>
-                      </div>
-                      <div 
-                        className="timeline-event ovulation"
-                        style={{ 
-                          left: `${((cycle.ovulation - cycle.periodStart) / (1000 * 60 * 60 * 24) / results.cycleLength) * 100}%`,
-                          width: '2%'
-                        }}
-                      >
-                        <span className="event-marker">🥚</span>
+              {results.cycles.map((cycle, idx) => {
+                const cycleStartDate = new Date(cycle.periodStart)
+                cycleStartDate.setDate(cycleStartDate.getDate() - results.cycleLength)
+                
+                const getDayOffset = (date) => {
+                  return Math.floor((date - cycleStartDate) / (1000 * 60 * 60 * 24))
+                }
+                
+                const periodStart = getDayOffset(cycle.periodStart)
+                const fertileStart = getDayOffset(cycle.fertileStart)
+                const peakStart = getDayOffset(cycle.peakStart)
+                const ovulationStart = getDayOffset(cycle.ovulation)
+                
+                return (
+                  <div key={idx} className="timeline-cycle">
+                    <div className="timeline-label">
+                      <strong>Cycle {cycle.cycleNumber}</strong>
+                      <small>{formatDateShort(cycle.periodStart)}</small>
+                    </div>
+                    <div className="timeline-bar-container">
+                      <div className="timeline-events">
+                        <div 
+                          className="timeline-event period"
+                          style={{ 
+                            left: `${(periodStart / results.cycleLength) * 100}%`,
+                            width: `${(results.periodLength / results.cycleLength) * 100}%`
+                          }}
+                        >
+                          <span className="event-label">Period</span>
+                        </div>
+                        <div 
+                          className="timeline-event fertile"
+                          style={{ 
+                            left: `${(fertileStart / results.cycleLength) * 100}%`,
+                            width: `${(7 / results.cycleLength) * 100}%`
+                          }}
+                        >
+                          <span className="event-label">Fertile</span>
+                        </div>
+                        <div 
+                          className="timeline-event peak"
+                          style={{ 
+                            left: `${(peakStart / results.cycleLength) * 100}%`,
+                            width: `${(3 / results.cycleLength) * 100}%`
+                          }}
+                        >
+                          <span className="event-label">Peak</span>
+                        </div>
+                        <div 
+                          className="timeline-event ovulation"
+                          style={{ 
+                            left: `${(ovulationStart / results.cycleLength) * 100}%`,
+                            width: '3%'
+                          }}
+                        >
+                          <span className="event-marker">🥚</span>
+                        </div>
                       </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                )
+              })}
             </div>
           )}
 
